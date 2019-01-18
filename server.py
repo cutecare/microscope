@@ -99,6 +99,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             pinState = GPIO.input(pin)
             GPIO.setup(pin,GPIO.OUT)
             GPIO.output(pin, not pinState)
+            print('Toggle pin %d' % pin)
         elif self.path == '/drive':
             directionPin = int(data['dirPin'])
             GPIO.output(directionPin, GPIO.HIGH if data['direction'] == '1' else GPIO.LOW )
@@ -106,6 +107,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             sleep(0.01)
             GPIO.output(pin, GPIO.LOW)
             sleep(0.01)
+            print('Drive on pin %d' % pin)
 
 class StreamingHttpServer(HTTPServer):
     def __init__(self):
