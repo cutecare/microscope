@@ -49,34 +49,40 @@
         }).on("touchend", function () {
             clearInterval(this.interval);
         });
-        $('#zoom-out').on("mouseover", function () {
+        $('#zoom-out').on("touchstart", function () {
             this.interval = drive(22, 27, 0);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
-        $('#hor-left').on("mouseenter", function () {
+        $('#hor-left').on("touchstart", function () {
             this.interval = drive(21, 20, 1);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
-        $('#hor-right').on("mouseover", function () {
+        $('#hor-right').on("touchstart", function () {
             this.interval = drive(21, 20, 0);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
-        $('#deep-in').on("mouseenter", function () {
+        $('#deep-in').on("touchstart", function () {
             this.interval = drive(24, 23, 1);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
-        $('#deep-out').on("mouseover", function () {
+        $('#deep-out').on("touchstart", function () {
             this.interval = drive(24, 23, 0);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
         $('#light-uv').on("click", function () {
             toggle(6);
-        })
+        });
+        $('#light-above').on("click", function () {
+            toggle(17);
+        });
+        $('#light-below').on("click", function () {
+            toggle(18);
+        });
 
         function drive(pin, dirpin, direction) {
             return setInterval(
