@@ -107,7 +107,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             sleep(0.01)
             GPIO.output(pin, GPIO.LOW)
             sleep(0.01)
-            print('Drive on pin %d with direction %d' % pin, int(data['direction']) )
+            print('Drive on pin %d with direction %d' % (pin, int(data['direction'])) )
 
 class StreamingHttpServer(HTTPServer):
     def __init__(self):
