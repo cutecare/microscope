@@ -44,9 +44,9 @@
     <button id="light-below" class="button right-top-dl">D</button>
 
 	<script type="text/javascript">
-        $('#zoom-in').on("mouseenter", function () {
+        $('#zoom-in').on("touchstart", function () {
             this.interval = drive(22, 27, 1);
-        }).on("mouseleave", function () {
+        }).on("touchend", function () {
             clearInterval(this.interval);
         });
         $('#zoom-out').on("mouseover", function () {
@@ -74,7 +74,7 @@
         }).on("mouseleave", function () {
             clearInterval(this.interval);
         });
-        $('#light-uv').on("mouseenter", function () {
+        $('#light-uv').on("click", function () {
             toggle(6);
         })
 
