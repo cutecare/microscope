@@ -1,0 +1,60 @@
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 28px;
+    margin: 4px 2px;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    position: fixed;
+    opacity: 0.8;
+}
+
+.left-top-plus {
+    left: 0;
+    top: 0;
+}
+
+.left-top-minus {
+    left: 0;
+    top: 60px;
+}
+
+.left-btm-plus {
+    left: 0;
+    bottom: 0;
+}
+
+.left-btm-minus {
+    left: 60px;
+    bottom: 0;
+}
+
+.right-btm-plus {
+    right: 60px;
+    bottom: 0;
+}
+
+.right-btm-minus {
+    right: 0;
+    bottom: 0;
+}
+
+.right-top-uv {
+    right: 0;
+    top: 0;
+}
+
+.right-top-ul {
+    right: 60px;
+    top: 0;
+}
+
+.right-top-dl {
+    right: 120px;
+    top: 0;
+}

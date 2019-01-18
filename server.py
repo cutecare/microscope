@@ -11,7 +11,8 @@ from threading import Thread
 from time import sleep, time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from wsgiref.simple_server import make_server
-
+import RPi.GPIO as GPIO
+import json
 import picamera
 from ws4py.websocket import WebSocket
 from ws4py.server.wsgirefserver import (
@@ -23,10 +24,18 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 
 ###########################################
 # CONFIGURATION
-WIDTH = 640
-HEIGHT = 480
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+PINS = [5,6,13,17,18,19,20,21,22,23,24,26,27]
+
+for pin in PINS:
+    GPIO.setup(pin,GPIO.OUT,initial=GPIO.LOW)
+
+WIDTH = 2592
+HEIGHT = 1944
 FRAMERATE = 24
-HTTP_PORT = 8082
+HTTP_PORT = 80
 WS_PORT = 8084
 COLOR = u'#444'
 BGCOLOR = u'#333'
@@ -48,15 +57,25 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             self.send_header('Location', '/index.html')
             self.end_headers()
             return
-        elif self.path == '/jsmpg.js':
+        elif self.path == '/assets/style.css':
+            content_type = 'text/css'
+            with io.open('assets/style.css', 'r') as f:
+                content = f.read()
+        elif self.path == '/assets/jsmpg.js':
             content_type = 'application/javascript'
-            content = self.server.jsmpg_content
+            with io.open('assets/jsmpg.js', 'r') as f:
+                content = f.read()
+        elif self.path == '/assets/jquery-3.3.1.min.js':
+            content_type = 'application/javascript'
+            with io.open('assets/jquery-3.3.1.min.js', 'r') as f:
+                content = f.read()
         elif self.path == '/index.html':
             content_type = 'text/html; charset=utf-8'
-            tpl = Template(self.server.index_template)
-            content = tpl.safe_substitute(dict(
-                WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
-                BGCOLOR=BGCOLOR))
+            with io.open('index.html', 'r') as f:
+                tpl = Template(f.read())
+                content = tpl.safe_substitute(dict(
+                    WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
+                    BGCOLOR=BGCOLOR))
         else:
             self.send_error(404, 'File not found')
             return
@@ -69,15 +88,29 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         if self.command == 'GET':
             self.wfile.write(content)
 
+    def do_POST(self):
+        self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+        self.send_response(200)
+        self.end_headers()
+        data = json.loads(self.data_string)
+        pin = int(data['pin'])
+        if self.path == '/toggle':
+            GPIO.setup(pin,GPIO.IN)
+            pinState = GPIO.input(pin)
+            GPIO.setup(pin,GPIO.OUT)
+            GPIO.output(pin, not pinState)
+        elif self.path == '/drive':
+            directionPin = int(data['dirPin'])
+            GPIO.output(directionPin, GPIO.HIGH if data['direction'] == '1' else GPIO.LOW )
+            GPIO.output(pin, GPIO.HIGH)
+            sleep(0.01)
+            GPIO.output(pin, GPIO.LOW)
+            sleep(0.01)
 
 class StreamingHttpServer(HTTPServer):
     def __init__(self):
         super(StreamingHttpServer, self).__init__(
                 ('', HTTP_PORT), StreamingHttpHandler)
-        with io.open('index.html', 'r') as f:
-            self.index_template = f.read()
-        with io.open('jsmpg.js', 'r') as f:
-            self.jsmpg_content = f.read()
 
 
 class StreamingWebSocket(WebSocket):
@@ -178,7 +211,6 @@ def main():
             http_thread.join()
             print('Waiting for websockets thread to finish')
             websocket_thread.join()
-
 
 if __name__ == '__main__':
     main()
