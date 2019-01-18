@@ -32,8 +32,8 @@ PINS = [5,6,13,17,18,19,20,21,22,23,24,26,27]
 for pin in PINS:
     GPIO.setup(pin,GPIO.OUT,initial=GPIO.LOW)
 
-WIDTH = 2592
-HEIGHT = 1944
+WIDTH = 640
+HEIGHT = 480
 FRAMERATE = 24
 HTTP_PORT = 80
 WS_PORT = 8084
@@ -92,7 +92,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         self.send_response(200)
         self.end_headers()
-        data = json.loads(self.data_string)
+        data = json.loads(self.data_string.decode('utf-8'))
         pin = int(data['pin'])
         if self.path == '/toggle':
             GPIO.setup(pin,GPIO.IN)
