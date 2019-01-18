@@ -31,7 +31,8 @@ cat > /etc/init.d/microscope << EOF
 ### END INIT INFO
 
 startDaemon() {
-      /usr/bin/python3 /home/pi/microscope/server.py > /var/log/microscope.log &
+      cd /home/pi/microscope
+      /usr/bin/python3 server.py > /var/log/microscope.log &
 }
 
 stopDaemon() {
