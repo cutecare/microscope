@@ -109,9 +109,9 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             GPIO.output(directionPin, GPIO.HIGH if int(data['direction']) > 0 else GPIO.LOW )
             steps = int(data['steps'])
             for c in range(0, steps):
-                GPIO.output(pin, GPIO.HIGH)
-                sleep(waitMilliseconds)
                 GPIO.output(pin, GPIO.LOW)
+                sleep(waitMilliseconds)
+                GPIO.output(pin, GPIO.HIGH)
                 sleep(waitMilliseconds)
             print('Drive on pin %d with direction %d' % (pin, int(data['direction'])) )
 
