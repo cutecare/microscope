@@ -105,7 +105,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             print('Toggle pin %d' % pin)
         elif self.path == '/drive':
             directionPin = int(data['dirPin'])
-            waitMilliseconds = float(data['millis']) / 1000;
+            waitMilliseconds = int(data['millis']) / 1000;
             GPIO.output(directionPin, GPIO.HIGH if int(data['direction']) > 0 else GPIO.LOW )
             steps = int(data['steps'])
             for c in range(1, steps):
