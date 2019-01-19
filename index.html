@@ -8,7 +8,7 @@
     <script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
 	<style type="text/css">
 		body {
-			background: ${BGCOLOR};
+			background: black;
 			text-align: center;
 			margin-top: 10%;
 		}
@@ -114,14 +114,21 @@
             toggle(17);
         });
 
-        function drive(pin, dirpin, direction, steps) {
+        function drive(pin, dirpin, direction, steps, millis) {
             if (!steps) steps = 1
+            if (!millis) millis = 50
             return setInterval(
                 function () {
                     $.ajax({
                         url: '/drive',
                         type: 'POST',
-                        data: JSON.stringify({ "pin": pin, "dirPin": dirpin, "direction": direction, "steps": steps }),
+                        data: JSON.stringify({
+                            "pin": pin,
+                            "dirPin": dirpin,
+                            "direction": direction,
+                            "steps": steps,
+                            "millis": millis
+                        }),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         async: false

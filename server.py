@@ -105,13 +105,13 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             print('Toggle pin %d' % pin)
         elif self.path == '/drive':
             directionPin = int(data['dirPin'])
+            waitMilliseconds = float(data['millis']) / 1000;
             GPIO.output(directionPin, GPIO.HIGH if int(data['direction']) > 0 else GPIO.LOW )
             steps = int(data['steps'])
-            for c in range(0, steps):
+            for c in range(1, steps):
                 GPIO.output(pin, GPIO.HIGH)
-                sleep(0.02)
+                sleep(waitMilliseconds)
                 GPIO.output(pin, GPIO.LOW)
-                sleep(0.02)
             print('Drive on pin %d with direction %d' % (pin, int(data['direction'])) )
 
 class StreamingHttpServer(HTTPServer):
@@ -136,8 +136,8 @@ class BroadcastOutput(object):
             '-r', str(float(camera.framerate)),
             '-i', '-',
             '-f', 'mpeg1video',
-            '-b', '800k',
-            '-vf','crop=%d:%d:%d:%d' % (WEB_WIDTH, WEB_HEIGHT, (WIDTH - WEB_WIDTH) / 2 + 80, (HEIGHT - WEB_HEIGHT) / 2),
+            '-b', '2048k',
+            '-vf','crop=%d:%d:%d:%d' % (WEB_WIDTH, WEB_HEIGHT, (WIDTH - WEB_WIDTH) / 2 + 73, (HEIGHT - WEB_HEIGHT) / 2),
             '-r', str(float(camera.framerate)),
             '-'],
             stdin=PIPE, stdout=PIPE, stderr=io.open(os.devnull, 'wb'),
