@@ -35,8 +35,10 @@ for pin in PINS:
 for pin in range(0, 27):
     PINSTATES.append(0)
 
-WIDTH = 640
-HEIGHT = 480
+WIDTH = 1024
+HEIGHT = 800
+WEB_WIDTH = 640
+WEB_HEIGHT = 480
 FRAMERATE = 24
 HTTP_PORT = 80
 WS_PORT = 8084
@@ -77,7 +79,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             with io.open('index.html', 'r') as f:
                 tpl = Template(f.read())
                 content = tpl.safe_substitute(dict(
-                    WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
+                    WS_PORT=WS_PORT, WIDTH=WEB_WIDTH, HEIGHT=WEB_HEIGHT, COLOR=COLOR,
                     BGCOLOR=BGCOLOR))
         else:
             self.send_error(404, 'File not found')
@@ -107,9 +109,9 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             steps = int(data['steps'])
             for c in range(0, steps):
                 GPIO.output(pin, GPIO.HIGH)
-                sleep(0.005)
+                sleep(0.02)
                 GPIO.output(pin, GPIO.LOW)
-                sleep(0.005)
+                sleep(0.02)
             print('Drive on pin %d with direction %d' % (pin, int(data['direction'])) )
 
 class StreamingHttpServer(HTTPServer):
@@ -120,7 +122,7 @@ class StreamingHttpServer(HTTPServer):
 
 class StreamingWebSocket(WebSocket):
     def opened(self):
-        self.send(JSMPEG_HEADER.pack(JSMPEG_MAGIC, WIDTH, HEIGHT), binary=True)
+        self.send(JSMPEG_HEADER.pack(JSMPEG_MAGIC, WEB_WIDTH, WEB_HEIGHT), binary=True)
 
 
 class BroadcastOutput(object):
@@ -135,6 +137,7 @@ class BroadcastOutput(object):
             '-i', '-',
             '-f', 'mpeg1video',
             '-b', '800k',
+            '-vf','crop=%d:%d:0:0' % (WEB_WIDTH, WEB_HEIGHT),
             '-r', str(float(camera.framerate)),
             '-'],
             stdin=PIPE, stdout=PIPE, stderr=io.open(os.devnull, 'wb'),

@@ -45,42 +45,60 @@
 
 	<script type="text/javascript">
         $('#zoom-in').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
             this.interval = drive(22, 27, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
         $('#zoom-out').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
-            this.interval = drive(22, 27, 0, 10);
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
+            this.interval = drive(22, 27, 0, 30);
         }).on("touchend", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
         $('#hor-left').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
             this.interval = drive(21, 20, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
         $('#hor-right').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
             this.interval = drive(21, 20, 0);
         }).on("touchend", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
         $('#deep-in').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
             this.interval = drive(24, 23, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
         $('#deep-out').on("touchstart", function () {
-            if (this.interval && this.interval > 0) return;
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
             this.interval = drive(24, 23, 0);
         }).on("touchend", function () {
             clearInterval(this.interval);
