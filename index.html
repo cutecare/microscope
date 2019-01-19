@@ -33,64 +33,77 @@
 			<a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
 		</p>
 	</canvas>
-    <button id="zoom-in" class="button left-top-plus">+</button>
-    <button id="zoom-out" class="button left-top-minus">-</button>
-    <button id="hor-left" class="button left-btm-plus">+</button>
-    <button id="hor-right" class="button left-btm-minus">-</button>
-    <button id="deep-in" class="button right-btm-plus">+</button>
-    <button id="deep-out" class="button right-btm-minus">-</button>
-    <button id="light-uv" class="button right-top-uv">UV</button>
-    <button id="light-above" class="button right-top-ul">U</button>
-    <button id="light-below" class="button right-top-dl">D</button>
+    <button id="zoom-in" tabindex="0" class="button left-top-plus">+</button>
+    <button id="zoom-out" tabindex="0" class="button left-top-minus">-</button>
+    <button id="hor-left" tabindex="0" class="button left-btm-plus">+</button>
+    <button id="hor-right" tabindex="0" class="button left-btm-minus">-</button>
+    <button id="deep-in" tabindex="0" class="button right-btm-plus">+</button>
+    <button id="deep-out" tabindex="0" class="button right-btm-minus">-</button>
+    <button id="light-uv" tabindex="0" class="button right-top-uv">UV</button>
+    <button id="light-above" tabindex="0" class="button right-top-ul">A</button>
+    <button id="light-below" tabindex="0" class="button right-top-dl">B</button>
 
 	<script type="text/javascript">
         $('#zoom-in').on("touchstart", function () {
+            if (this.interval && this.interval > 0) return;
             this.interval = drive(22, 27, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#zoom-out').on("touchstart", function () {
-            this.interval = drive(22, 27, 0);
+            if (this.interval && this.interval > 0) return;
+            this.interval = drive(22, 27, 0, 10);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#hor-left').on("touchstart", function () {
+            if (this.interval && this.interval > 0) return;
             this.interval = drive(21, 20, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#hor-right').on("touchstart", function () {
+            if (this.interval && this.interval > 0) return;
             this.interval = drive(21, 20, 0);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#deep-in').on("touchstart", function () {
+            if (this.interval && this.interval > 0) return;
             this.interval = drive(24, 23, 1);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#deep-out').on("touchstart", function () {
+            if (this.interval && this.interval > 0) return;
             this.interval = drive(24, 23, 0);
         }).on("touchend", function () {
             clearInterval(this.interval);
+            this.interval = 0;
         });
         $('#light-uv').on("click", function () {
             toggle(6);
         });
         $('#light-above').on("click", function () {
-            toggle(17);
-        });
-        $('#light-below').on("click", function () {
             toggle(18);
         });
+        $('#light-below').on("click", function () {
+            toggle(17);
+        });
 
-        function drive(pin, dirpin, direction) {
+        function drive(pin, dirpin, direction, steps) {
+            if (!steps) steps = 1
             return setInterval(
                 function () {
                     $.ajax({
                         url: '/drive',
                         type: 'POST',
-                        data: JSON.stringify({ "pin": pin, "dirPin": dirpin, "direction": direction }),
+                        data: JSON.stringify({ "pin": pin, "dirPin": dirpin, "direction": direction, "steps": steps }),
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
                         async: false

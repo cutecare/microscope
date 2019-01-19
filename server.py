@@ -28,9 +28,11 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 PINS = [5,6,13,17,18,19,20,21,22,23,24,26,27]
+PINSTATES = []
 
 for pin in PINS:
     GPIO.setup(pin,GPIO.OUT,initial=GPIO.LOW)
+    PINSTATES[pin] = 0
 
 WIDTH = 640
 HEIGHT = 480
@@ -95,18 +97,18 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
         data = json.loads(self.data_string.decode('utf-8'))
         pin = int(data['pin'])
         if self.path == '/toggle':
-            GPIO.setup(pin,GPIO.IN)
-            pinState = GPIO.input(pin)
-            GPIO.setup(pin,GPIO.OUT)
-            GPIO.output(pin, not pinState)
+            PINSTATES[pin] = not PINSTATES[pin]
+            GPIO.output(pin, PINSTATES[pin])
             print('Toggle pin %d' % pin)
         elif self.path == '/drive':
             directionPin = int(data['dirPin'])
             GPIO.output(directionPin, GPIO.HIGH if int(data['direction']) > 0 else GPIO.LOW )
-            GPIO.output(pin, GPIO.HIGH)
-            sleep(0.01)
-            GPIO.output(pin, GPIO.LOW)
-            sleep(0.01)
+            steps = int(data['steps'])
+            for c in range(0, steps):
+                GPIO.output(pin, GPIO.HIGH)
+                sleep(0.005)
+                GPIO.output(pin, GPIO.LOW)
+                sleep(0.005)
             print('Drive on pin %d with direction %d' % (pin, int(data['direction'])) )
 
 class StreamingHttpServer(HTTPServer):

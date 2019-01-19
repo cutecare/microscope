@@ -11,50 +11,51 @@
     height: 50px;
     border-radius: 30px;
     position: fixed;
-    opacity: 0.8;
+    opacity: 0.7;
+    outline-width: 0;
 }
 
 .left-top-plus {
-    left: 0;
-    top: 0;
+    left: 10px;
+    top: 10px;
 }
 
 .left-top-minus {
-    left: 0;
-    top: 60px;
+    left: 10px;
+    top: 70px;
 }
 
 .left-btm-plus {
-    left: 0;
-    bottom: 0;
+    left: 10px;
+    bottom: 10px;
 }
 
 .left-btm-minus {
-    left: 60px;
-    bottom: 0;
+    left: 70px;
+    bottom: 10px;
 }
 
 .right-btm-plus {
-    right: 60px;
-    bottom: 0;
+    right: 70px;
+    bottom: 10px;
 }
 
 .right-btm-minus {
-    right: 0;
-    bottom: 0;
+    right: 10px;
+    bottom: 10px;
 }
 
 .right-top-uv {
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
 }
 
 .right-top-ul {
-    right: 60px;
-    top: 0;
+    right: 70px;
+    top: 10px;
 }
 
 .right-top-dl {
-    right: 120px;
-    top: 0;
+    right: 130px;
+    top: 10px;
 }
