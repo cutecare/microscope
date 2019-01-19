@@ -28,11 +28,12 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 PINS = [5,6,13,17,18,19,20,21,22,23,24,26,27]
-PINSTATES = [0:27]
+PINSTATES = []
 
 for pin in PINS:
     GPIO.setup(pin,GPIO.OUT,initial=GPIO.LOW)
-    PINSTATES[pin] = 0
+for pin in range(0, 27):
+    PINSTATES.append(0)
 
 WIDTH = 640
 HEIGHT = 480
