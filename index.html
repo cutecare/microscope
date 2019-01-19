@@ -35,10 +35,10 @@
 	</canvas>
     <button id="zoom-in" tabindex="0" class="button left-top-plus">+</button>
     <button id="zoom-out" tabindex="0" class="button left-top-minus">-</button>
-    <button id="hor-left" tabindex="0" class="button left-btm-plus">+</button>
-    <button id="hor-right" tabindex="0" class="button left-btm-minus">-</button>
-    <button id="deep-in" tabindex="0" class="button right-btm-plus">+</button>
-    <button id="deep-out" tabindex="0" class="button right-btm-minus">-</button>
+    <button id="hor-left" tabindex="0" class="button left-btm-plus">&larr;</button>
+    <button id="hor-right" tabindex="0" class="button left-btm-minus">&rarr;</button>
+    <button id="deep-in" tabindex="0" class="button right-btm-plus">&uarr;</button>
+    <button id="deep-out" tabindex="0" class="button right-btm-minus">&darr;</button>
     <button id="light-uv" tabindex="0" class="button right-top-uv">UV</button>
     <button id="light-above" tabindex="0" class="button right-top-ul">A</button>
     <button id="light-below" tabindex="0" class="button right-top-dl">B</button>
@@ -69,7 +69,7 @@
                 clearInterval(this.interval);
                 this.interval = 0;
             }
-            this.interval = drive(21, 20, 1);
+            this.interval = drive(21, 20, 0);
         }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
@@ -79,7 +79,7 @@
                 clearInterval(this.interval);
                 this.interval = 0;
             }
-            this.interval = drive(21, 20, 0);
+            this.interval = drive(21, 20, 1);
         }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;

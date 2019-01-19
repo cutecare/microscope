@@ -137,7 +137,7 @@ class BroadcastOutput(object):
             '-i', '-',
             '-f', 'mpeg1video',
             '-b', '800k',
-            '-vf','crop=%d:%d:%d:%d' % (WEB_WIDTH, WEB_HEIGHT, (WIDTH - WEB_WIDTH) / 2, (HEIGHT - WEB_HEIGHT) / 2),
+            '-vf','crop=%d:%d:%d:%d' % (WEB_WIDTH, WEB_HEIGHT, (WIDTH - WEB_WIDTH) / 2 - 80, (HEIGHT - WEB_HEIGHT) / 2),
             '-r', str(float(camera.framerate)),
             '-'],
             stdin=PIPE, stdout=PIPE, stderr=io.open(os.devnull, 'wb'),
