@@ -35,10 +35,10 @@ for pin in PINS:
 for pin in range(0, 27):
     PINSTATES.append(0)
 
-WIDTH = 1024
-HEIGHT = 800
-WEB_WIDTH = 640
-WEB_HEIGHT = 480
+WIDTH = 2048
+HEIGHT = 1536
+WEB_WIDTH = 480
+WEB_HEIGHT = 360
 FRAMERATE = 24
 HTTP_PORT = 80
 WS_PORT = 8084
@@ -137,7 +137,7 @@ class BroadcastOutput(object):
             '-i', '-',
             '-f', 'mpeg1video',
             '-b', '800k',
-            '-vf','crop=%d:%d:0:0' % (WEB_WIDTH, WEB_HEIGHT),
+            '-vf','crop=%d:%d:%d:%d' % (WEB_WIDTH, WEB_HEIGHT, (WIDTH - WEB_WIDTH) / 2, (HEIGHT - WEB_HEIGHT) / 2),
             '-r', str(float(camera.framerate)),
             '-'],
             stdin=PIPE, stdout=PIPE, stderr=io.open(os.devnull, 'wb'),

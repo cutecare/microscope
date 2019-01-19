@@ -50,7 +50,7 @@
                 this.interval = 0;
             }
             this.interval = drive(22, 27, 1);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
@@ -60,7 +60,7 @@
                 this.interval = 0;
             }
             this.interval = drive(22, 27, 0, 30);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
@@ -70,7 +70,7 @@
                 this.interval = 0;
             }
             this.interval = drive(21, 20, 1);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
@@ -80,7 +80,7 @@
                 this.interval = 0;
             }
             this.interval = drive(21, 20, 0);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
@@ -90,7 +90,7 @@
                 this.interval = 0;
             }
             this.interval = drive(24, 23, 1);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
@@ -100,7 +100,7 @@
                 this.interval = 0;
             }
             this.interval = drive(24, 23, 0);
-        }).on("touchend", function () {
+        }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
         });
