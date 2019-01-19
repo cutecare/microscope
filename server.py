@@ -108,7 +108,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
             waitMilliseconds = int(data['millis']) / 1000;
             GPIO.output(directionPin, GPIO.HIGH if int(data['direction']) > 0 else GPIO.LOW )
             steps = int(data['steps'])
-            for c in range(1, steps):
+            for c in range(0, steps):
                 GPIO.output(pin, GPIO.HIGH)
                 sleep(waitMilliseconds)
                 GPIO.output(pin, GPIO.LOW)
