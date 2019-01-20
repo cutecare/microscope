@@ -35,6 +35,8 @@
 	</canvas>
     <button id="zoom-in" tabindex="0" class="button left-top-plus">+</button>
     <button id="zoom-out" tabindex="0" class="button left-top-minus">-</button>
+    <button id="zoom-in-x" tabindex="0" class="button left-top-plus-x">+x2</button>
+    <button id="zoom-out-x" tabindex="0" class="button left-top-minus-x">-x2</button>
     <button id="hor-left" tabindex="0" class="button left-btm-plus">&larr;</button>
     <button id="hor-right" tabindex="0" class="button left-btm-minus">&rarr;</button>
     <button id="deep-in" tabindex="0" class="button right-btm-plus">&uarr;</button>
@@ -49,7 +51,7 @@
                 clearInterval(this.interval);
                 this.interval = 0;
             }
-            this.interval = drive(22, 27, 0);
+            this.interval = drive(22, 27, 1);
         }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
@@ -59,7 +61,27 @@
                 clearInterval(this.interval);
                 this.interval = 0;
             }
-            this.interval = drive(22, 27, 1);
+            this.interval = drive(22, 27, 0);
+        }).on("touchend touchcancel", function () {
+            clearInterval(this.interval);
+            this.interval = 0;
+        });
+        $('#zoom-in-x').on("touchstart", function () {
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
+            this.interval = drive(22, 27, 1, 30, 10);
+        }).on("touchend touchcancel", function () {
+            clearInterval(this.interval);
+            this.interval = 0;
+        });
+        $('#zoom-out-x').on("touchstart", function () {
+            if (this.interval && this.interval > 0) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            }
+            this.interval = drive(22, 27, 0, 30, 10);
         }).on("touchend touchcancel", function () {
             clearInterval(this.interval);
             this.interval = 0;
@@ -157,21 +179,6 @@
         // Setup the WebSocket connection and start the player
         var client = new WebSocket('ws://' + window.location.hostname + ':${WS_PORT}/');
         var player = new jsmpeg(client, { canvas: canvas });
-
-        var docElm = document.documentElement;
-        if (docElm.requestFullscreen) {
-            docElm.requestFullscreen();
-        }
-        else if (docElm.msRequestFullscreen) {
-            docElm = document.body; //overwrite the element (for IE)
-            docElm.msRequestFullscreen();
-        }
-        else if (docElm.mozRequestFullScreen) {
-            docElm.mozRequestFullScreen();
-        }
-        else if (docElm.webkitRequestFullScreen) {
-            docElm.webkitRequestFullScreen();
-        }
 	</script>
 </body>
 </html>

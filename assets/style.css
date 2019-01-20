@@ -29,6 +29,16 @@
     top: 90px;
 }
 
+.left-top-plus-x {
+    left: 10px;
+    top: 200px;
+}
+
+.left-top-minus-x {
+    left: 10px;
+    top: 280px;
+}
+
 .left-btm-plus {
     left: 10px;
     bottom: 10px;
