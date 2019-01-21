@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+# Original source is https://github.com/waveform80/pistreaming
+# Improved by Evgeny Savitsky <evgeny.savitsky@gmail.com>
+# Used by Cutecare Cummunity as educational project, see more info at http://cutecare.ru
+#
+
 import sys
 import io
 import os
@@ -21,9 +26,6 @@ from ws4py.server.wsgirefserver import (
     WebSocketWSGIRequestHandler,
 )
 from ws4py.server.wsgiutils import WebSocketWSGIApplication
-
-###########################################
-# CONFIGURATION
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -48,9 +50,6 @@ JSMPEG_MAGIC = b'jsmp'
 JSMPEG_HEADER = Struct('>4sHH')
 VFLIP = False
 HFLIP = False
-
-###########################################
-
 
 class StreamingHttpHandler(BaseHTTPRequestHandler):
     def do_HEAD(self):
