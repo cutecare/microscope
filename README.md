@@ -19,6 +19,7 @@
 Регистрируем сервис, реализующий веб-сервер:
 
 ```
+sudo -s
 cat > /etc/init.d/microscope << EOF
 #!/bin/bash
  
