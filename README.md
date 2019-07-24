@@ -2,6 +2,11 @@
 
     $ raspistil -o test.jpg
     
+Обновим систему:    
+
+    $ sudo apt-get -y update && apt-get -y upgrade
+    $ reboot
+
 Теперь устанавливаем дополнительные компоненты, необходимые для работы веб-сервера:    
 
     $ sudo apt-get install ffmpeg git python3-picamera python3-ws4py python3-rpi.gpio dnsmasq hostapd
