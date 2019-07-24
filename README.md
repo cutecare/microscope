@@ -9,7 +9,7 @@
 
 Теперь устанавливаем дополнительные компоненты, необходимые для работы веб-сервера:    
 
-    $ sudo apt-get install ffmpeg git python3-picamera python3-ws4py python3-rpi.gpio dnsmasq hostapd
+    $ sudo apt-get -y install ffmpeg git python3-picamera python3-ws4py python3-rpi.gpio dnsmasq hostapd
  
 Клонируем репозиторий:
 
