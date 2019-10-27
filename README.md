@@ -129,7 +129,15 @@ rsn_pairwise=CCMP
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 ```
 
-перезагружаем.
+включаем сервис
+
+```
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+sudo systemctl start hostapd
+```
+
+перезагружаем микрокомпьютер.
 
 При помощи мобильного телефона или планшета ищем новую WiFi-сеть с названием Microscope, подключаемся указывая пароль 11111111 и в адресной строке браузера вводим http://192.168.2.1 после чего должно открыться приложение для управления микроскопом.
 
